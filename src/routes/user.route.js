@@ -1,21 +1,31 @@
 const express = require("express");
 const router = express.Router();
 
-const { checkToken } = require("../controller/auth.controler");
+const { createUser } = require("../controller/user.controller");
+const { genToken } = require("../controller/auth.controler");
 
 router.use(express.json());
 
-router.post("/signin", (req, res) => {
-    res.send("Hello sign in");
-});
-
 router.post("/signup", async (req, res) => {
-    res.send(
-        "Hello sign up" +
-            (await checkToken(
-                "sakdgsajdhfgsahdgsafddfjhgasdsajda21387213621873tghb"
-            ))
-    );
+    try {
+        let userInserted = await createUser(req.body);
+        let token = await genToken({
+            username: userInserted.username,
+            id: userInserted._id,
+        });
+        res.json({
+            success: true,
+            data: {
+                userInserted,
+                token: token,
+            },
+        });
+    } catch (e) {
+        res.json({
+            success: false,
+            data: e,
+        });
+    }
 });
 
 module.exports = router;
