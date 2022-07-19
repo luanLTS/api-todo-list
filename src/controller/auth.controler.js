@@ -7,9 +7,11 @@ const genToken = ({ username, id }) => {
     return new Promise((resolve, reject) => {
         jwt.sign(
             {
-                data: `${username}${id}`,
+                data: {
+                    username,
+                    id,
+                },
             },
-
             secret,
             (err, payload) => {
                 if (!err) {
@@ -22,10 +24,20 @@ const genToken = ({ username, id }) => {
     });
 };
 
-const checkToken = async (token) => {
-    return token;
+const checkToken = (req, res, next) => {
+    jwt.verify(req.body.token, secret, (err, result) => {
+        if (!err) {
+            next();
+        } else {
+            res.json({
+                success: false,
+                data: err,
+            });
+        }
+    });
 };
 
 module.exports = {
     genToken,
+    checkToken,
 };
