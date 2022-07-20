@@ -8,8 +8,8 @@ const genToken = ({ username, id }) => {
         jwt.sign(
             {
                 data: {
-                    username,
                     id,
+                    username,
                 },
             },
             secret,

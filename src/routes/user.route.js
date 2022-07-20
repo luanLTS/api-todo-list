@@ -10,7 +10,7 @@ router.post("/signup", async (req, res) => {
     try {
         let userInserted = await createUser(req.body);
         let token = await genToken({
-            username: userInserted.username,
+            username: userInserted.name,
             id: userInserted._id,
         });
         res.json({
@@ -32,7 +32,7 @@ router.post("/signin", async (req, res) => {
     try {
         let userLogged = await loginUser(req.body);
         let token = await genToken({
-            username: userLogged.username,
+            username: userLogged.name,
             id: userLogged._id,
         });
 
