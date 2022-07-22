@@ -4,10 +4,7 @@ const todoSchema = mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     toggle: { type: Boolean, required: true },
+    idUser: { type: mongoose.Types.ObjectId, required: true },
 });
 
-const listSchema = mongoose.Schema({
-    todos: [todoSchema],
-});
-
-module.exports = mongoose.model("Todos", listSchema);
+module.exports = mongoose.model("Todo", todoSchema);

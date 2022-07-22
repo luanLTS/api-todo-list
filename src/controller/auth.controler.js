@@ -37,7 +37,19 @@ const checkToken = (req, res, next) => {
     });
 };
 
+const decodeToken = (token) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const payload = jwt.decode(token);
+            resolve(payload);
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 module.exports = {
     genToken,
     checkToken,
+    decodeToken,
 };
