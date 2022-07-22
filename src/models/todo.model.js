@@ -6,4 +6,8 @@ const todoSchema = mongoose.Schema({
     toggle: { type: Boolean, required: true },
 });
 
-module.exports = mongoose.model("Todo", todoSchema);
+const listSchema = mongoose.Schema({
+    todos: [todoSchema],
+});
+
+module.exports = mongoose.model("Todos", listSchema);
