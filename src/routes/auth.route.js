@@ -4,7 +4,7 @@ const router = express.Router();
 const { loginUser } = require("../controller/user.controller");
 const { genToken } = require("../controller/auth.controler");
 
-router.post("/signin", async (req, res) => {
+router.get("/signin", async (req, res) => {
     try {
         let userLogged = await loginUser(req.body);
         let token = await genToken({

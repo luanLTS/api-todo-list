@@ -16,7 +16,7 @@ router.post("/signup", async (req, res) => {
         res.json({
             success: true,
             data: {
-                userInserted,
+                name: userInserted.name,
                 token: token,
             },
         });
