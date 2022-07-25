@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação</title>
+
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <h1 class="title-section">User</h1>
+            <section id="user-routes">
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="orange">POST</span>
+                        <span id="widget-title">/user/signup</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para realizar o cadastro do usuário no sistema. É uma requisição do tipo
+                            POST, passando as informações do cliente via body, e em caso de sucesso, retorna um
+                            JSON com o nome do utilizado no cadastro e o token de acesso.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            name: "joao",
+                            password: 123456
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                            "data": {
+                                "name": "joao",
+                                "token": "jwt que expira após 2 horas."
+                            }
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+
+            </section>
+
+            <h1 class="title-section">Auth</h1>
+            <section id="auth-routes">
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="green">GET</span>
+                        <span id="widget-title">/auth/signin</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para realizar a autenticação do usuário no sistema, após a autenticação
+                            ser realizada o usuário, a partir do token, será possível realizar as operações de
+                            CRUD(Create, Read, Update e Delete) da sua lista de tarefas. É uma requisição do tipo
+                            GET, passando via body o nome de usuário e senha, e em caso de sucesso, retorna um
+                            JSON com o token de acesso.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            name: "joao",
+                            password: 123456
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                            "data": {
+                                "token": "jwt que expira após 2 horas."
+                            }
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <h1 class="title-section">Todo</h1>
+            <section id="todo-routes">
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="orange">POST</span>
+                        <span id="widget-title">/todos/</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para realizar a criação de uma tarefa na lista do usuário. É uma
+                            requisição do tipo POST que recebe via body, o título, a descrição e o token válido do
+                            usuário. Caso sucesso, é retornado o id da tarefa criada.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            title: "Lorem ipsum dolor sit.",
+                            description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi, impedit?",
+                            token: "jwt do usuário autenticado"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                            "data": "62def2fbdce74f4100283f29"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="green">GET</span>
+                        <span id="widget-title">/todos/:id</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para realizar a busca de uma tarefa específica pelo seu id. É uma
+                            requisição do tipo GET sendo preciso passar o token válido do cliente via body.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            token: "jwt do usuário autenticado"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                            "data": {
+                                "_id": "62def2fbdce74f4100283f29",
+                                "title": "todo exemplo",
+                                "description": "este é um exemplo",
+                                "toggle": false,
+                                "idUser": "62d9fbb281f0bef275f8be3a",
+                                "__v": 0
+                            }
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="green">GET</span>
+                        <span id="widget-title">/todos/</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para realizar a busca da lista de tarefas por inteira. É uma
+                            requisição do tipo GET sendo preciso passar o token válido do cliente via body.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            token: "jwt do usuário autenticado"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                            "data": [{
+                                "_id": "62def2fbdce74f4100283f29",
+                                "title": "todo exemplo",
+                                "description": "este é um exemplo",
+                                "toggle": false,
+                                "idUser": "62d9fbb281f0bef275f8be3a",
+                                "__v": 0
+                            },
+                            {
+                                "_id": "62def2fbdce74f4100283f29",
+                                "title": "todo exemplo",
+                                "description": "este é um exemplo",
+                                "toggle": false,
+                                "idUser": "62d9fbb281f0bef275f8be3a",
+                                "__v": 0
+                            }]
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="blue">PUT</span>
+                        <span id="widget-title">/todos/:id</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para realizar a atualização das informações de uma tarefa pelo seu id. É
+                            uma
+                            requisição do tipo PUT sendo preciso passar o token válido do cliente, e as novas
+                            informações via body.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            "title": "titulo att",
+                            "description": "desc att",
+                            token: "jwt do usuário autenticado"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                            "data": {
+                                "acknowledged": true,
+                                "modifiedCount": 0,
+                                "upsertedId": null,
+                                "upsertedCount": 0,
+                                "matchedCount": 0
+                            }
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="blue">PUT</span>
+                        <span id="widget-title">/todos/toggle/:id</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para marcar uma tarefa como concluida ou não. É
+                            uma requisição do tipo PUT sendo preciso passar o token válido do cliente via body.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            token: "jwt do usuário autenticado"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span id="widget-method" class="red">DEL</span>
+                        <span id="widget-title">/todos/:id</span>
+                    </div>
+                    <div class="widget-body">
+                        <p id="widget-describe">
+                            Este endpoint serve para deletar uma tarefa da lista de tarefas do usuário pelo id. É
+                            uma requisição do tipo DELETE sendo preciso passar o token válido do cliente via body.
+                        </p>
+                        <span class="title-code">Requisição</span>
+                        <pre>
+                        <code>
+                        {
+                            token: "jwt do usuário autenticado"
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso sucesso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": true,
+                        }
+                        </code>
+                        </pre>
+                        <span class="title-code">Resposta caso fracasso</span>
+                        <pre>
+                        <code>
+                        {
+                            "success": false,
+                            "message": "mensagem do erro que ocorreu"
+                        }
+                        </code>
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html {
+        font-size: 10px;
+    }
+
+    .red {
+        background-color: red;
+        color: #fff;
+    }
+
+    .orange {
+        background-color: orange;
+        color: #fff;
+    }
+
+    .green {
+        background-color: green;
+        color: #fff;
+    }
+
+    .blue {
+        background-color: blue;
+        color: #fff;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px 10%;
+    }
+
+    section {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .title-section {
+        font-size: 2.5rem;
+        margin: 1rem;
+    }
+
+    .widget {
+        flex: 1;
+        min-width: 430px;
+        padding: 1.3rem;
+    }
+
+    .widget .widget-header {
+        margin: 5px 0px;
+    }
+
+    .widget .widget-header #widget-method {
+        font-size: 1.5rem;
+        font-weight: bolder;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: #fff;
+    }
+
+    .widget .widget-header #widget-title {
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+
+    .widget .widget-body #widget-describe {
+        font-size: 1.2rem;
+        font-weight: 400;
+        padding: 1rem;
+    }
+
+    pre code {
+        font-size: 1.2rem;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background-color: #e1e1e1;
+        display: block;
+        border-radius: 1.5rem;
+        padding: 1rem;
+    }
+
+    .title-code {
+        font-size: 1.5rem;
+    }
+</style>
+
+</html>
